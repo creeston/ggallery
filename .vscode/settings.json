@@ -1,0 +1,11 @@
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "black-formatter.args": [
+        "--line-length",
+        "120"
+    ],
+    "[jinja-html]": {
+        "editor.defaultFormatter": "monosans.djlint"
+    },
+}

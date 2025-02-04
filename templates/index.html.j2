@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+    <meta name="viewport"
+          content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description"
+          content="A beautiful photo gallery showcasing various images.">
+    <meta name="keywords" content="photo, gallery, images, photography">
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+            type="text/javascript"></script>
+    <!-- nanogallery2 -->
+    <link href="https://cdn.jsdelivr.net/npm/nanogallery2@3/dist/css/nanogallery2.min.css"
+          rel="stylesheet"
+          type="text/css">
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/nanogallery2@3/dist/jquery.nanogallery2.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/8689469c8f.js"
+            crossorigin="anonymous"></script>
+  </head>
+  <body class="dark-mode">
+    <nav class="navbar">
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <button id="previous-toggle" class="button is-dark hidden">
+            <span class="icon">
+              <i class="fa-solid fa-left-long"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <button id="theme-toggle" class="button is-dark">
+            <span class="icon">
+              <i class="fa-solid fa-moon hidden"></i>
+              <i class="fa-solid fa-sun"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <h1 class="title is-2 is-spaced"></h1>
+    <h2 class="subtitle is-6"></h2>
+    <div id="nanogallery"></div>
+    <footer>
+      <p class="content">
+        Made with <a target="_blank" href="{{ 'https://nanogallery2.nanostudio.org' }}">nanogallery2</a>
+      </p>
+    </footer>
+  </body>
+  <script>
+    jQuery("#nanogallery").nanogallery2({
+      itemsBaseURL: '{{ items_base_url }}',
+      items: [
+        {% for item in items %}
+        { 
+          {% if item.src is not none %}src: '{{ item.src }}',{% endif %}
+          {% if item.srct is not none %}srct: '{{ item.srct }}',{% endif %}
+          {% if item.id is not none %}ID: '{{ item.id }}',{% endif %}
+          {% if item.kind is not none %}kind: '{{ item.kind }}',{% endif %}
+          {% if item.album_id is not none %}albumID: '{{ item.album_id }}',{% endif %}
+          {% if item.title is not none %}title: '{{ item.title }}',{% endif %}
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ],
+
+      thumbnailHeight: '400', thumbnailWidth: 'auto',
+      thumbnailAlignment: 'fillWidth',
+      displayBreadcrumb: false,
+      thumbnailL1Label: {valign: "bottom", position: 'overImage', hideIcons: true  },
+      thumbnailToolbarImage: { topLeft: '', bottomRight: '', topRight: '', bottomLeft: '' },  
+      thumbnailToolbarAlbum: { topLeft:'', topRight: '', bottomLeft: '', bottomRight: ''},
+      thumbnailDisplayTransitionDuration: 400,
+      thumbnailDisplayInterval: 200,
+      thumbnailDisplayOrder: 'rowByRow',
+      thumbnailBorderHorizontal: 0,
+      thumbnailBorderVertical: 0,
+      thumbnailGutterWidth: 5,
+      thumbnailHoverEffect2: 'imageGrayOff',
+      touchAnimation: true,
+      touchAutoOpenDelay: -1,
+      viewerToolbar: { standard: '', minimized: '' },
+      viewerTools: { topLeft: '', topRight: 'closeButton', bottomLeft: '', bottomRight: '', },
+      viewerGallery: "none",
+      galleryTheme: {
+        thumbnail: { titleShadow: 'none', descriptionShadow: 'none', titleColor: '#fff', borderColor: '#fff', borderSize: 0 },
+        navigationPagination: { background: '#3C4B5B', color: '#fff', colorHover: '#aaa', borderRadius: '4px' },
+      },
+
+      fnGalleryRenderEnd: function(e) {
+        let title = e.title;
+
+        if (e.albumID === '-1') {
+          title = "{{ title }}";
+          subtitle = "{{ subtitle }}";
+        } else {
+          let album = albums[e.GetID()];
+          subtitle = album.subtitle;
+          title = album.title;
+        }
+
+        if (title) {
+          $('.title').text(title);
+        } else 
+        {
+          $('.title').text('');
+        }
+        if (subtitle) {
+          $('.subtitle').text(subtitle);
+        } else {
+          $('.subtitle').text('');
+        }
+
+        if (e.albumID === '-1') {
+          $('#previous-toggle').addClass('hidden');
+        } else {
+          $('#previous-toggle').removeClass('hidden');
+        }
+      },
+
+      locationHash: false
+    });
+
+    const albums =  {
+        {% for album in albums %}
+            '{{ album.id }}': {
+              subtitle: '{{ album.subtitle }}',
+              title: '{{ album.title }}',
+            }
+        {% if not loop.last %},{% endif %}
+        {% endfor %}
+    };
+
+    function navigateToAlbums() {
+      var instance = $('#nanogallery').nanogallery2('instance');
+      instance.GOM.albumIdx = 0;
+      instance.Refresh();
+    }
+
+    $('#previous-toggle').on('click', function() {
+      navigateToAlbums();
+    });
+
+    $('#theme-toggle').on('click', function() {
+      $('body').toggleClass('dark-mode');
+      $('.fa-moon').toggleClass('hidden');
+      $('.fa-sun').toggleClass('hidden');
+      $('#theme-toggle').toggleClass('is-dark is-light');
+    });
+  </script>
+</html>
+<script></script>
+<style>
+  #nanogallery {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+    min-height: 100vh;
+  }
+
+  .navbar {
+    background-color: transparent;
+  }
+
+  .title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2em;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  body.dark-mode .title {
+    color: #bababa;
+  }
+
+  body.dark-mode footer {
+    color: #bababa;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .subtitle {
+    text-align: center;
+  }
+
+  body {
+    padding-bottom: 20px;
+  }
+
+  footer {
+    position: fixed;
+    bottom: 5px;
+    left: 12px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: inherit;
+  }
+
+  footer p {
+    font-size: 0.8em;
+  }
+
+</style>
