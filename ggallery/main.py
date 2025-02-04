@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-from config import load_config
-from providers import get_provider
-from utils.image_utils import create_thumbnail
-from utils.template_utils import render_template
+from .config import load_config
+from .providers import get_provider
+from .utils.image_utils import create_thumbnail
+from .utils.template_utils import render_template
 
 load_dotenv()
 
