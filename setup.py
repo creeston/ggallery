@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ggallery",
-    version="0.1.0",
+    version="0.1.2",
     description="A tool to generate static HTML photo galleries from various data sources.",
     author="Radzivon Chorny",
     author_email="mityy2012@gmail.com",

@@ -1,8 +1,8 @@
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, PackageLoader
 
 
 def render_template(albums, base_url: str, title: str, subtitle: str):
-    env = Environment(loader=FileSystemLoader("templates"))
+    env = Environment(loader=PackageLoader("ggallery", "templates"))
     template = env.get_template("index.html.j2")
 
     items = []

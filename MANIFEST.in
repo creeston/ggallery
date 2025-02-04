@@ -1,1 +1,1 @@
-include gallery_generator/templates/*.j2
+include ggallery/templates/*.j2
