@@ -2,7 +2,7 @@ from PIL import Image
 from io import BytesIO
 
 
-def create_thumbnail(image_data, height: int):
+def create_thumbnail(image_data, height: int) -> bytes:
     image = Image.open(BytesIO(image_data))
     aspect_ratio = image.width / image.height
     new_width = int(height * aspect_ratio)
@@ -11,4 +11,6 @@ def create_thumbnail(image_data, height: int):
     thumbnail_data = BytesIO()
     image.save(thumbnail_data, format="JPEG")
     thumbnail_data.seek(0)
+    # convert BytesIO to bytes
+    thumbnail_data = thumbnail_data.read()
     return thumbnail_data

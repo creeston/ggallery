@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ggallery",
-    version="0.1.2",
+    version="0.1.3",
     description="A tool to generate static HTML photo galleries from various data sources.",
     author="Radzivon Chorny",
     author_email="mityy2012@gmail.com",
@@ -14,10 +14,11 @@ setup(
         "Jinja2==3.1.5",
         "PyYAML==6.0.2",
         "python-dotenv==1.0.1",
+        "pydantic==2.10.6",
     ],
     entry_points={
         "console_scripts": [
-            "ggallery=ggallery.main:main",
+            "ggallery=ggallery",
         ],
     },
     classifiers=[
