@@ -1,12 +1,9 @@
 from azure.storage.blob import BlobServiceClient
-from PIL import Image
-from io import BytesIO
-import os
-from .base_provider import BaseProvider
+from .base_provider import BaseSourceDataProvider, BaseStorageProvider
 from ..model import AzureBlobStorageConfig
 
 
-class AzureBlobProvider(BaseProvider):
+class AzureBlobSourceDataProvider(BaseSourceDataProvider):
     def __init__(self, config: AzureBlobStorageConfig):
         self.config = config
         if not self.config.connection_string:
@@ -26,6 +23,17 @@ class AzureBlobProvider(BaseProvider):
     def get_image_data(self, directory: str, image_name: str) -> bytes:
         blob_client = self.container_client.get_blob_client(f"{directory}/{image_name}")
         return blob_client.download_blob().readall()
+
+
+class AzureBlobStorageProvider(BaseStorageProvider):
+    def __init__(self, config: AzureBlobStorageConfig):
+        self.config = config
+        if not self.config.connection_string:
+            raise ValueError("Azure Storage connection string not found.")
+
+        self.blob_service_client = BlobServiceClient.from_connection_string(self.config.connection_string)
+        self.container_client = self.blob_service_client.get_container_client(self.config.container)
+        self.base_url_value = self.container_client.url + "/"
 
     def upload_image(self, image_data, directory, image_name) -> str:
         blob_name = f"{directory}/{image_name}"

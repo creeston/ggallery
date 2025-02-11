@@ -1,9 +1,18 @@
 from typing import List, Optional
-from pydantic import BaseModel, Field, model_validator, root_validator
+from pydantic import BaseModel, Field, model_validator
+
+
+class FaviconConfig(BaseModel):
+    type: str  # "fontawesome", "local"
+    name: str  # "camera-retro"
 
 
 class ThumbnailsConfig(BaseModel):
     height: int
+
+
+class TemplateConfig(BaseModel):
+    name: str  # "nano-gallery"
 
 
 class StorageConfig(BaseModel):
@@ -12,7 +21,7 @@ class StorageConfig(BaseModel):
 
 class LocalStorageConfig(StorageConfig):
     type: str = "local"
-    path: str
+    path: str | None = None  # Path to the local folder, must be same as output path
 
 
 class AzureBlobStorageConfig(StorageConfig):
@@ -23,17 +32,15 @@ class AzureBlobStorageConfig(StorageConfig):
 
 class OutputConfig(BaseModel):
     path: str
-    index: Optional[str] = "index.html"
+    index: str = Field(default="index.html")
 
 
 class PhotoConfig(BaseModel):
-    filename: str
-    thumbnail: str
+    source: str | None = None
+    filename: str | None = None
+    thumbnail: str | None = None
 
     title: Optional[str] = None
-    date: Optional[str] = None
-    order: Optional[int] = None
-    description: Optional[str] = None
 
 
 class AlbumConfig(BaseModel):
@@ -47,9 +54,6 @@ class AlbumConfig(BaseModel):
     @model_validator(mode="before")
     def check_folder_or_photos(cls, values):
         folder, photos = values.get("source"), values.get("photos")
-        if folder and photos:
-            raise ValueError("Use either 'folder' or 'photos', not both.")
-
         if not folder and not photos:
             raise ValueError("Either 'folder' or 'photos' must be provided.")
         return values
@@ -60,8 +64,19 @@ class AlbumConfig(BaseModel):
 class GalleryConfig(BaseModel):
     title: str
     subtitle: Optional[str] = None
-    thumbnail: ThumbnailsConfig = Field(default=ThumbnailsConfig(height=800))
+    favicon: Optional[FaviconConfig] = None
+    template: TemplateConfig
+    thumbnail: ThumbnailsConfig = Field(default=ThumbnailsConfig(height=400))
     data_source: LocalStorageConfig | AzureBlobStorageConfig
-    storage: LocalStorageConfig | AzureBlobStorageConfig
+    data_storage: LocalStorageConfig | AzureBlobStorageConfig
     output: OutputConfig
     albums: List[AlbumConfig] = Field(default_factory=list)
+
+
+class RendererParameters(BaseModel):
+    albums: List[AlbumConfig]
+    base_url: str
+    thumbnail_height: int
+    title: str
+    subtitle: Optional[str]
+    favicon: Optional[str]

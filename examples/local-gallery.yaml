@@ -1,0 +1,56 @@
+title: Local Gallery
+subtitle: Gallery with photos stored in the same directory as static website.
+
+# Thumbnail configuration
+thumbnail:
+    # Thumbnail height in pixels
+    height: 400
+
+# Gallery template configuration
+template:
+    # Template name. Currently only "nano-gallery" is supported.
+    # This template is based on the nano-gallery library: https://nanogallery2.nanostudio.org and bulma CSS framework https://bulma.io
+    name: "nano-gallery"
+
+# Data source configuration
+data_source:
+    # Local data source. Photos will be loaded from the specified directory in the local file system
+    type: local
+
+    # Path to the directory with photos. You can use environment variables here
+    path: "${LOCAL_PHOTOS_PATH}"
+
+# Data storage configuration
+data_storage:
+    # Local data storage. Photos will be stored in the same directory as the generated gallery website
+    type: local
+
+albums:
+    # Title of the album, will be displayed on the gallery page
+    - title: "Japan"
+      subtitle: "Photos from my trip to Japan"
+      # Source directory with photos, relative to the data source path.
+      # All photos in this directory will be included in the album
+      source: "japan"
+
+      # Image file that will be used as a cover for the album
+      cover: "jezael-melgoza-alY6_OpdwRQ-unsplash.jpg"
+
+    - title: "Italy"
+      source: "italy"
+      cover: "jessi-pena-GRpTtMLEr_s-unsplash.jpg"
+
+      # Additional photo metadata can be included.
+      photos:
+          # Currently only title is available as an additional info to display on the photo
+          - title: "View at the Colosseum during the day"
+            # Image file for which the metadata is provided
+            source: "jessi-pena-GRpTtMLEr_s-unsplash.jpg"
+
+# Output configuration
+output:
+    # Output directory where the gallery will be generated
+    path: docs
+
+    # Output file name for the gallery index page
+    index: index.html

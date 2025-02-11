@@ -2,10 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name="ggallery",
-    version="0.1.3",
+    version="0.1.6",
     description="A tool to generate static HTML photo galleries from various data sources.",
+    long_description=open("README.md", "r", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
     author="Radzivon Chorny",
     author_email="mityy2012@gmail.com",
+    url="https://github.com/creeston/ggallery",
     packages=find_packages(),
     include_package_data=True,  # Include non-Python files (e.g., templates)
     install_requires=[
@@ -18,7 +21,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "ggallery=ggallery",
+            "ggallery=ggallery.__main__:main",
         ],
     },
     classifiers=[
@@ -27,4 +30,10 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.7",
+    project_urls={
+        "Documentation": "https://github.com/creeston/ggallery",
+        "Source": "https://github.com/creeston/ggallery",
+        "Tracker": "https://github.com/creeston/ggallery/issues",
+    },
+    keywords="static html photo gallery generator",
 )
