@@ -240,4 +240,24 @@
     opacity: 1;
   }
 
+  /* Overriding bulma navbar styles, so that it remains same even on smaller screens. */
+
+  .navbar {
+    display: flex;
+  }
+
+  .navbar-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-inline-end: auto;
+  }
+
+  .navbar-end {
+    justify-content: flex-end;
+    display: flex;
+    align-items: stretch;
+    margin-inline-start: auto;
+  }
+
 </style>

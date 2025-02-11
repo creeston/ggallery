@@ -12,7 +12,7 @@ print(os.listdir(this_directory))
 
 setup(
     name="ggallery",
-    version="1.0.0",
+    version="1.0.1",
     description="A tool to generate static HTML photo galleries from various data sources.",
     long_description=long_description,
     long_description_content_type="text/markdown",
