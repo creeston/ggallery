@@ -12,7 +12,7 @@ class ThumbnailsConfig(BaseModel):
 
 
 class TemplateConfig(BaseModel):
-    name: str  # "nano-gallery"
+    url: str
 
 
 class StorageConfig(BaseModel):
@@ -32,7 +32,6 @@ class AzureBlobStorageConfig(StorageConfig):
 
 class OutputConfig(BaseModel):
     path: str
-    index: str = Field(default="index.html")
 
 
 class PhotoConfig(BaseModel):

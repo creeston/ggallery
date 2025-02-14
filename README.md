@@ -7,13 +7,17 @@
 [![npm](https://img.shields.io/badge/demo-online-008000.svg)](https://creeston.github.io/ggallery)
 [![npm](https://img.shields.io/pypi/v/ggallery)](https://pypi.org/project/ggallery/)
 
-`ggallery` is a Python tool that generates a static HTML photo gallery website from a YAML specification. It allows you to create beautiful and customizable photo galleries with ease, using various data sources and storage providers.
+`ggallery` is a Python tool that generates a static HTML photo gallery website from a YAML specification and from given renderer plugin. It allows you to create beautiful and customizable photo galleries with ease, using various data sources and storage providers.
 
 ## Features
 
-- **Static HTML Generation**: Create a static HTML photo gallery that can be hosted on any web server.
+- **Static HTML Generation using plugins**: Create a static HTML photo gallery that can be hosted on any web server, using a custom renderer plugin.
 - **Multiple Data Sources**: Supports local file system and Azure Blob Storage as data sources.
 - **Thumbnail Generation**: Automatically generate thumbnails for your images.
+
+## Available Renderer PLugins
+
+- https://github.com/creeston/ggallery-nanogallery2 - template built on top of nanogallery2 and bulma css framework.
 
 ## Usage
 
@@ -49,7 +53,7 @@ thumbnail:
     height: 400
 
 template:
-    name: "nano-gallery"
+    url: https://github.com/creeston/ggallery-nanogallery2
 
 data_source:
     type: local
@@ -100,7 +104,7 @@ thumbnail:
     height: 400
 
 template:
-    name: "nano-gallery"
+    url: https://github.com/creeston/ggallery-nanogallery2
 
 data_source:
     type: local
@@ -137,7 +141,16 @@ Run the tool:
 python -m ggallery gallery.yaml
 ```
 
-## Live Examples
+## Implementing a Custom Template
+
+ggallery doesn't contain any templates by default. You can create your own plugin by implementing `ggalllery.renderers.BaseRenderer` class.
+You can use any template engine you like, but it should be able to render the gallery data in the format specified in the `gallery.yaml` file.
+
+Examples:
+- https://github.com/creeston/ggallery-nanogallery2
+
+
+## Live Gallery Examples
 
 - [https://creeston.github.io/photos (Azure hosted)](https://creeston.github.io/photos/)
 
@@ -145,15 +158,9 @@ python -m ggallery gallery.yaml
 
 `ggallery` uses the following technologies:
 
-- **[Jinja2](https://palletsprojects.com/p/jinja/)**: A templating engine for Python.
 - **[Pillow](https://python-pillow.org/)**: A Python Imaging Library.
 - **[Azure Storage Blob](https://pypi.org/project/azure-storage-blob/)**: Azure Blob Storage client library for Python.
 - **[PyYAML](https://pyyaml.org/)**: YAML parser and emitter for Python.
-
-For the nano-gallery template:
-- **[nanogallery2](https://nanogallery2.nanostudio.org/)**
-- **[bulma](https://bulma.io/)**
-- **[FontAwesome](https://fontawesome.com/)**
 
 ## Contribution
 

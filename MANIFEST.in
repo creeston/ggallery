@@ -1,2 +1,1 @@
-include ggallery/templates/*.j2
 include README-PIP.md

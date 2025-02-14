@@ -5,13 +5,17 @@
 
 [![npm](https://img.shields.io/badge/demo-online-008000.svg)](https://creeston.github.io/ggallery)
 
-`ggallery` is a Python tool that generates a static HTML photo gallery website from a YAML specification. It allows you to create beautiful and customizable photo galleries with ease, using various data sources and storage providers.
+`ggallery` is a Python tool that generates a static HTML photo gallery website from a YAML specification and from given renderer plugin. It allows you to create beautiful and customizable photo galleries with ease, using various data sources and storage providers.
 
 ## Features
 
-- **Static HTML Generation**: Create a static HTML photo gallery that can be hosted on any web server.
+- **Static HTML Generation using plugins**: Create a static HTML photo gallery that can be hosted on any web server, using a custom renderer plugin.
 - **Multiple Data Sources**: Supports local file system and Azure Blob Storage as data sources.
 - **Thumbnail Generation**: Automatically generate thumbnails for your images.
+
+## Available Renderer PLugins
+
+- https://github.com/creeston/ggallery-nanogallery2 - template built on top of nanogallery2 and bulma css framework.
 
 ## Usage
 
@@ -47,7 +51,7 @@ thumbnail:
     height: 400
 
 template:
-    name: "nano-gallery"
+    url: https://github.com/creeston/ggallery-nanogallery2
 
 data_source:
     type: local
@@ -71,7 +75,6 @@ albums:
 
 output:
     path: docs
-    index: index.html
 ```
 
 Set the `LOCAL_PHOTOS_PATH` environment variable to the path where your photos are stored.
@@ -124,7 +127,6 @@ albums:
 
 output:
     path: docs
-    index: index.html
 ```
 
 Set the `LOCAL_PHOTOS_PATH`, `AZURE_CONTAINER`, and `AZURE_CONNECTION_STRING` environment variables.

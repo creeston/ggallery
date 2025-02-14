@@ -8,9 +8,8 @@ thumbnail:
 
 # Gallery template configuration
 template:
-    # Template name. Currently only "nano-gallery" is supported.
-    # This template is based on the nano-gallery library: https://nanogallery2.nanostudio.org and bulma CSS framework https://bulma.io
-    name: "nano-gallery"
+    # Template url. Currently only github repository is supported as a source
+    name: https://github.com/creeston/ggallery-nanogallery2
 
 # Data source configuration
 data_source:
@@ -51,6 +50,3 @@ albums:
 output:
     # Output directory where the gallery will be generated
     path: docs
-
-    # Output file name for the gallery index page
-    index: index.html

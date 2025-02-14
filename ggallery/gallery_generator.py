@@ -88,7 +88,7 @@ class GalleryGenerator:
         )
 
         rendered_html = self.renderer.render(render_parameters)
-        self.__write_content_to_output_directory(output_config.path, output_config.index, rendered_html)
+        self.__write_content_to_output_directory(output_config.path, "index.html", rendered_html)
 
     def __write_content_to_output_directory(self, output_path: str, file_name: str, content: bytes | str) -> None:
         output_directory = Path(output_path)

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from .model import GalleryConfig, LocalStorageConfig
 from .config import load_config
 from .storage import get_source_provider, get_storage_provider
-from .renderers import get_renderer
+from .renderers import RendererImporter
 from .favicon import get_favicon_provider
 from .image import ThumbnailCreator
 from .gallery_generator import GalleryGenerator
@@ -46,18 +46,18 @@ def main():
 
     target_provider = get_storage_provider(gallery.data_storage)
     favicon_provider = get_favicon_provider(gallery.favicon.type) if gallery.favicon is not None else None
-    renderer = get_renderer(gallery.template.name)
-    thumbnail_creator = ThumbnailCreator()
-    gallery_generator = GalleryGenerator(
-        source_storage_provider=source_provider,
-        target_storage_provider=target_provider,
-        thumbnail_creator=thumbnail_creator,
-        favicon_provider=favicon_provider,
-        renderer=renderer,
-        logger=logger,
-    )
+    with RendererImporter(gallery.template.url) as renderer:
+        thumbnail_creator = ThumbnailCreator()
+        gallery_generator = GalleryGenerator(
+            source_storage_provider=source_provider,
+            target_storage_provider=target_provider,
+            thumbnail_creator=thumbnail_creator,
+            favicon_provider=favicon_provider,
+            renderer=renderer,
+            logger=logger,
+        )
 
-    gallery_generator.create_gallery(gallery)
+        gallery_generator.create_gallery(gallery)
 
 
 if __name__ == "__main__":
