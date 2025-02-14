@@ -15,7 +15,7 @@
 - **Multiple Data Sources**: Supports local file system and Azure Blob Storage as data sources.
 - **Thumbnail Generation**: Automatically generate thumbnails for your images.
 
-## Available Renderer PLugins
+## Available Renderer Plugins
 
 - https://github.com/creeston/ggallery-nanogallery2 - template built on top of nanogallery2 and bulma css framework.
 
