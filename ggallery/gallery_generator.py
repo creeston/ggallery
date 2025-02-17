@@ -85,15 +85,19 @@ class GalleryGenerator:
             title=gallery.title,
             subtitle=gallery.subtitle,
             favicon=favicon_url,
+            template_parameters=gallery.template.parameters,
         )
 
-        rendered_html = self.renderer.render(render_parameters)
-        self.__write_content_to_output_directory(output_config.path, "index.html", rendered_html)
+        rendered_files = self.renderer.render(render_parameters)
+        if not isinstance(rendered_files, list):
+            rendered_files = [rendered_files]
+        for rendered_file in rendered_files:
+            self.__write_content_to_output_directory(output_config.path, rendered_file.name, rendered_file.content)
 
     def __write_content_to_output_directory(self, output_path: str, file_name: str, content: bytes | str) -> None:
         output_directory = Path(output_path)
-        os.makedirs(output_directory, exist_ok=True)
         file_path = output_directory / file_name
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         if isinstance(content, str):
             with file_path.open("w") as f:
                 f.write(content)

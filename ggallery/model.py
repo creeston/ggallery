@@ -13,6 +13,7 @@ class ThumbnailsConfig(BaseModel):
 
 class TemplateConfig(BaseModel):
     url: str
+    parameters: Optional[dict] = None
 
 
 class StorageConfig(BaseModel):
@@ -79,3 +80,9 @@ class RendererParameters(BaseModel):
     title: str
     subtitle: Optional[str]
     favicon: Optional[str]
+    template_parameters: Optional[dict] = None
+
+
+class RenderedFile(BaseModel):
+    name: str
+    content: bytes | str

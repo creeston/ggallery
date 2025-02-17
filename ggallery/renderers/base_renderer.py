@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABC
-from ..model import RendererParameters
+from ..model import RenderedFile, RendererParameters
 
 
 class BaseRenderer(ABC):
     @abstractmethod
-    def render(self, parameters: RendererParameters) -> str:
+    def render(self, parameters: RendererParameters) -> list[RenderedFile] | RenderedFile:
         raise NotImplementedError
