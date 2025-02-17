@@ -1,10 +1,10 @@
 <div align="center">
-<img src="static/camera-retro-solid.svg" />
+<img src="docs/camera-retro-solid.svg" />
   <h1 align="center">ggallery</h1>
 </div>
 
 
-[![npm](https://img.shields.io/badge/demo-online-008000.svg)](https://creeston.github.io/ggallery)
+[![npm](https://img.shields.io/badge/demo-online-008000.svg)](https://creeston.github.io/ggallery-nanogallery2/)
 [![npm](https://img.shields.io/pypi/v/ggallery)](https://pypi.org/project/ggallery/)
 
 `ggallery` is a Python tool that generates a static HTML photo gallery website from a YAML specification and from given renderer plugin. It allows you to create beautiful and customizable photo galleries with ease, using various data sources and storage providers.
@@ -17,7 +17,7 @@
 
 ## Available Renderer Plugins
 
-- https://github.com/creeston/ggallery-nanogallery2 - template built on top of nanogallery2 and bulma css framework.
+- https://github.com/creeston/ggallery-nanogallery2 - template built on top of nanogallery2 and bulma css framework. [Live Demo](https://creeston.github.io/ggallery-nanogallery2/)
 
 ## Usage
 

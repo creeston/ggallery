@@ -59,6 +59,7 @@ class AlbumConfig(BaseModel):
         return values
 
     id: Optional[int] = None
+    route: Optional[str] = None
 
 
 class GalleryConfig(BaseModel):

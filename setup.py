@@ -6,13 +6,9 @@ from pathlib import Path
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README-PIP.md").read_text()
 
-import os
-
-print(os.listdir(this_directory))
-
 setup(
     name="ggallery",
-    version="1.0.3",
+    version="1.0.5",
     description="A tool to generate static HTML photo galleries from various data sources.",
     long_description=long_description,
     long_description_content_type="text/markdown",

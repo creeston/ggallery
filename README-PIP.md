@@ -15,7 +15,7 @@
 
 ## Available Renderer Plugins
 
-- https://github.com/creeston/ggallery-nanogallery2 - template built on top of nanogallery2 and bulma css framework.
+- https://github.com/creeston/ggallery-nanogallery2 - template built on top of nanogallery2 and bulma css framework. [Live Demo](https://creeston.github.io/ggallery-nanogallery2/)
 
 ## Usage
 
