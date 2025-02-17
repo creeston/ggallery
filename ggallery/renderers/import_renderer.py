@@ -53,8 +53,7 @@ class RendererImporter:
         return dest_dir
 
     def __download_github_repo(self) -> str:
-        repo_name = os.path.basename(self.template_module_url)
-        response = requests.get(f"https://api.github.com/repos/{repo_name}/zipball")
+        response = requests.get(f"{self.template_module_url}/archive/refs/heads/main.zip")
         if response.status_code != 200:
             raise ValueError("Failed to download repository")
         with ZipFile(BytesIO(response.content)) as zip_file:

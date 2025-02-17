@@ -8,7 +8,7 @@ long_description = (this_directory / "README-PIP.md").read_text()
 
 setup(
     name="ggallery",
-    version="1.0.5",
+    version="1.0.6",
     description="A tool to generate static HTML photo galleries from various data sources.",
     long_description=long_description,
     long_description_content_type="text/markdown",
