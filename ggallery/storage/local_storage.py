@@ -42,4 +42,4 @@ class LocalStorageProvider(BaseStorageProvider):
         return None
 
     def base_url(self) -> str:
-        return ""  # Local storage does not have a base URL, files are stored in the same directory as index.html
+        return "/"  # Local storage does not have a base URL, files are stored in the same directory as index.html

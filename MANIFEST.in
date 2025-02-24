@@ -1,1 +1,3 @@
 include README-PIP.md
+include ggallery/docker/Dockerfile
+include ggallery/docker/nginx.conf

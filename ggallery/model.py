@@ -35,6 +35,12 @@ class OutputConfig(BaseModel):
     path: str
 
 
+class DockerOutputConfig(BaseModel):
+    host: str
+    image_name: str
+    image_version: str
+
+
 class PhotoConfig(BaseModel):
     source: str | None = None
     filename: str | None = None
@@ -72,6 +78,7 @@ class GalleryConfig(BaseModel):
     data_storage: LocalStorageConfig | AzureBlobStorageConfig
     output: OutputConfig
     albums: List[AlbumConfig] = Field(default_factory=list)
+    docker: Optional[DockerOutputConfig] = None
 
 
 class RendererParameters(BaseModel):

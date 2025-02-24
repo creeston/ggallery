@@ -8,6 +8,7 @@ cffi==1.17.1
 charset-normalizer==3.4.1
 colorama==0.4.6
 cryptography>=44.0.1
+docker==7.1.0
 docutils==0.21.2
 id==1.5.0
 idna==3.10
@@ -31,6 +32,7 @@ pydantic_core==2.27.2
 Pygments==2.19.1
 pyproject_hooks==1.2.0
 python-dotenv==1.0.1
+pywin32==308
 pywin32-ctypes==0.2.3
 PyYAML==6.0.2
 readme_renderer==44.0

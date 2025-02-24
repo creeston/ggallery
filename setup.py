@@ -8,7 +8,7 @@ long_description = (this_directory / "README-PIP.md").read_text()
 
 setup(
     name="ggallery",
-    version="1.0.6",
+    version="1.0.9",
     description="A tool to generate static HTML photo galleries from various data sources.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -24,6 +24,7 @@ setup(
         "PyYAML==6.0.2",
         "python-dotenv==1.0.1",
         "pydantic==2.10.6",
+        "docker==7.1.0",
     ],
     entry_points={
         "console_scripts": [

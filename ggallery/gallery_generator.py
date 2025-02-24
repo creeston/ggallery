@@ -1,6 +1,8 @@
 from logging import Logger
 import os
 from pathlib import Path
+
+from .docker import DockerImageBuilder
 from .model import GalleryConfig, PhotoConfig, RendererParameters, OutputConfig
 from .storage import BaseStorageProvider, BaseSourceDataProvider
 from .image import ThumbnailCreator
@@ -31,6 +33,7 @@ class GalleryGenerator:
         actual_thumbnail_height = thumbnail_height * 2  # Double the height for better quality
 
         for album in albums:
+            self.logger.info(f"Processing album {album.title}.")
             if album.source is None:
                 continue
 
@@ -88,11 +91,20 @@ class GalleryGenerator:
             template_parameters=gallery.template.parameters,
         )
 
+        self.logger.info("Rendering gallery website.")
         rendered_files = self.renderer.render(render_parameters)
         if not isinstance(rendered_files, list):
             rendered_files = [rendered_files]
         for rendered_file in rendered_files:
             self.__write_content_to_output_directory(output_config.path, rendered_file.name, rendered_file.content)
+
+        if gallery.docker is not None:
+            docker_image_builder = DockerImageBuilder(gallery.docker.host, self.logger)
+            docker_image_builder.build_docker_image(
+                gallery.docker.image_name,
+                gallery.docker.image_version,
+                output_config.path,
+            )
 
     def __write_content_to_output_directory(self, output_path: str, file_name: str, content: bytes | str) -> None:
         output_directory = Path(output_path)
