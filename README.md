@@ -14,6 +14,7 @@
 - **Static HTML Generation using plugins**: Create a static HTML photo gallery that can be hosted on any web server, using a custom renderer plugin.
 - **Multiple Data Sources**: Supports local file system and Azure Blob Storage as data sources.
 - **Thumbnail Generation**: Automatically generate thumbnails for your images.
+- **Docker image creation**: Create a Docker image (using nginx) with the generated gallery.
 
 ## Available Renderer Plugins
 
@@ -21,13 +22,14 @@
 
 ## Usage
 
-To use `ggallery`, you need to have Python installed.
+To install `ggallery`, you need to have Python with pip package manager in your system. 
+Then you can install the tool using the following command:
 
 ```sh
 pip install ggallery
 ```
 
-You can run the tool using the following commands:
+You can run the `ggallery` using the following commands:
 
 ```sh
 python -m ggallery -f /path/to/your/gallery.yaml
@@ -39,11 +41,24 @@ or
 ggallery -f /path/to/your/gallery.yaml
 ```
 
-## Examples
+If you have the `gallery.yaml` file in the current directory, you can run the tool without specifying the file path:
 
-### Local Gallery Example
+```sh
+ggallery
+```
 
-Create a `gallery.yaml` file with the following content:
+## Gallery Specification Examples
+
+### Local Gallery with Docker Image
+
+Photos and HTML files are stored in the same directory as the static website. It will procude a directory ready to be served by a web server.
+
+1. Set environment variables (or create .env file)
+
+- `LOCAL_PHOTOS_PATH`: Path to the directory containing photos.
+- `DOCKER_HOST` Hostname of the Docker host. (e.g tcp://localhost:2375)
+
+2. Create a `gallery.yaml` file with the following content:
 
 ```yaml
 title: Local Gallery
@@ -57,10 +72,10 @@ template:
 
 data_source:
     type: local
-    path: "${LOCAL_PHOTOS_PATH}"
+    path: "${LOCAL_PHOTOS_PATH}" # Path to the directory containing photos.
 
 data_storage:
-    type: local
+    type: local # Store photos in the same directory as the static website.
 
 albums:
     - title: "Japan"
@@ -75,22 +90,29 @@ albums:
           - title: "View at the Colosseum at night"
             source: "colliseum.jpg"
 
+# Output directory for the generated gallery website.
 output:
     path: docs
     index: index.html
-```
 
-Set the `LOCAL_PHOTOS_PATH` environment variable to the path where your photos are stored.
-
-Run the tool:
-
-```sh
-python -m ggallery gallery.yaml
+# Docker image configuration
+docker:
+    image_name: "username/my-photo-gallery"
+    image_version: "latest"
+    host: "${DOCKER_HOST}"
 ```
 
 ### Azure Blob Storage Example
 
-Create a `gallery.yaml` file with the following content:
+Photos are stored in Azure Blob Storage. The generated gallery will contain links to the photos stored in Azure Blob Storage.
+
+1. Set environment variables (or create .env file)
+
+- `LOCAL_PHOTOS_PATH`: Path to the directory containing photos.
+- `AZURE_CONTAINER`: Azure Blob Storage container name.
+- `AZURE_CONNECTION_STRING`: Azure Blob Storage connection string.
+
+2. Create a `gallery.yaml` file with the following content:
 
 ```yaml
 title: Azure Gallery
@@ -110,6 +132,7 @@ data_source:
     type: local
     path: "${LOCAL_PHOTOS_PATH}"
 
+# Azure Blob Storage configuration, used to store photos and thumbnails.
 data_storage:
     type: azure-blob
     container: "${AZURE_CONTAINER}"
@@ -133,18 +156,10 @@ output:
     index: index.html
 ```
 
-Set the `LOCAL_PHOTOS_PATH`, `AZURE_CONTAINER`, and `AZURE_CONNECTION_STRING` environment variables.
-
-Run the tool:
-
-```sh
-python -m ggallery gallery.yaml
-```
-
 ## Implementing a Custom Template
 
-ggallery doesn't contain any templates by default. You can create your own plugin by implementing `ggalllery.renderers.BaseRenderer` class.
-You can use any template engine you like, but it should be able to render the gallery data in the format specified in the `gallery.yaml` file.
+ggallery doesn't contain any templates by default. You can create your own plugin by implementing `ggalllery.renderers.BaseRenderer` class. The plugin can be stored either locally or in a public github repository. URL to the repository should be provided in the `gallery.yaml` file in the `template.url` field.
+
 
 Examples:
 - https://github.com/creeston/ggallery-nanogallery2
@@ -152,7 +167,8 @@ Examples:
 
 ## Live Gallery Examples
 
-- [https://creeston.github.io/photos (Azure hosted)](https://creeston.github.io/photos/)
+- https://creeston.github.io/photos/ (Photos hosted on Azure Blob Storage, website is on GitHub Pages)
+- https://radzivon-gallery-hsgrctdhdwe7bgf0.polandcentral-01.azurewebsites.net/ (Docker image hosted on Azure App Service)
 
 ## References
 

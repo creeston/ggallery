@@ -53,6 +53,6 @@ output:
 
 # Docker image configuration
 docker:
-    image_name: "creeston/photo-gallery"
+    image_name: "username/photo-gallery"
     image_version: "latest"
     host: "${DOCKER_HOST}"
