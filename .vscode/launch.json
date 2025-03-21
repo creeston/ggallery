@@ -12,6 +12,14 @@
             "module": "ggallery",
             "console": "integratedTerminal",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Run test",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/tests",
+            "console": "integratedTerminal",
+            "program": "${file}"
         }
     ]
 }

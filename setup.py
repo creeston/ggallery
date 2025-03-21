@@ -8,7 +8,7 @@ long_description = (this_directory / "README-PIP.md").read_text()
 
 setup(
     name="ggallery",
-    version="1.1.0",
+    version="1.1.1",
     description="A tool to generate static HTML photo galleries from various data sources.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -20,7 +20,7 @@ setup(
     install_requires=[
         "azure-storage-blob==12.24.1",
         "Pillow==11.1.0",
-        "Jinja2==3.1.5",
+        "Jinja2==3.1.6",
         "PyYAML==6.0.2",
         "python-dotenv==1.0.1",
         "pydantic==2.10.6",
