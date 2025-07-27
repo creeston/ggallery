@@ -43,8 +43,3 @@ class DockerImageBuilder:
     def __create_client(self) -> docker.DockerClient:
         client = docker.DockerClient(base_url=self.docker_host, timeout=10)
         return client
-
-
-if __name__ == "__main__":
-    logger = Logger("Docker")
-    DockerImageBuilder("tcp://localhost:2375", logger).build_docker_image("ggallery", "latest", "docs")

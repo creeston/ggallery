@@ -187,14 +187,26 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Build
+## Development
+
+To set up a development environment, create a virtual environment and install the required packages:
+
+1. Install `uv` and `pip` if you haven't already. (https://github.com/astral-sh/uv)
+
+2. Install dependencies using `uv`:
 
 ```sh
-python -m build
+uv sync
 ```
 
-## Update PyPI
+### Build
 
 ```sh
-python -m twine upload dist/*
+uv build
+```
+
+### Update PyPI
+
+```sh
+uv publish --token <your-pypi-token>
 ```

@@ -1,6 +1,5 @@
 from ..model import FaviconConfig
 from .base_favicon_provider import BaseFaviconProvider, Favicon
-import os
 
 
 class LocalFaviconProvider(BaseFaviconProvider):

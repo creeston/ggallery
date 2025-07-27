@@ -30,7 +30,12 @@ def main():
     if not os.path.exists("gallery.yaml"):
         parser.add_argument("-f", "--file", help="Path to the configuration file", required=True)
     else:
-        parser.add_argument("-f", "--file", help="Path to the configuration file", default="gallery.yaml")
+        parser.add_argument(
+            "-f",
+            "--file",
+            help="Path to the configuration file",
+            default="gallery.yaml",
+        )
 
     args: Arguments = parser.parse_args(namespace=Arguments)  # type: ignore
 

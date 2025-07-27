@@ -1,6 +1,5 @@
 from io import BytesIO
 from PIL import Image, ImageOps
-from io import BytesIO
 
 
 class ThumbnailCreator:

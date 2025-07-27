@@ -1,3 +1,58 @@
+[project]
+name = "ggallery"
+version = "1.1.3"
+description = "A tool to generate static HTML photo galleries from various data sources."
+authors = [
+    { name = "Radzivon Chorny", email = "mityy2012@gmail.com" },
+]
+readme = "README-PIP.md"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+keywords = ["static", "html", "photo", "gallery", "generator"]
+dependencies = [
+    "azure-storage-blob>=12.26.0",
+    "docker>=7.1.0",
+    "dotenv>=0.9.9",
+    "pillow>=11.3.0",
+    "pydantic>=2.11.7",
+    "pytest>=8.4.1",
+    "pyyaml>=6.0.2",
+    "ruff>=0.12.5",
+    "setuptools>=80.9.0",
+    "testcontainers[azurite]>=4.12.0",
+]
+
+[project.urls]
+Documentation = "https://github.com/creeston/ggallery"
+Source = "https://github.com/creeston/ggallery"
+Tracker = "https://github.com/creeston/ggallery/issues"
+
+[project.scripts]
+ggallery = "ggallery.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools]
+include-package-data = true
+
 [build-system]
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+docstring-code-line-length = "dynamic"

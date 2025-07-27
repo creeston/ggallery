@@ -1,4 +1,3 @@
-import fnmatch
 import importlib.util
 import os
 from pathlib import Path
@@ -48,7 +47,10 @@ class RendererImporter:
             for file in files:
                 src_path = os.path.join(root, file)
                 dest_path = os.path.join(dest_dir, file)
-                with open(src_path, "rb") as src_file, open(dest_path, "wb") as dest_file:
+                with (
+                    open(src_path, "rb") as src_file,
+                    open(dest_path, "wb") as dest_file,
+                ):
                     dest_file.write(src_file.read())
         return dest_dir
 

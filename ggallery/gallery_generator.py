@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 from .docker import DockerImageBuilder
-from .model import GalleryConfig, PhotoConfig, RendererParameters, OutputConfig
+from .model import GalleryConfig, PhotoConfig, RendererParameters
 from .storage import BaseStorageProvider, BaseSourceDataProvider
 from .image import ThumbnailCreator
 from .favicon import BaseFaviconProvider

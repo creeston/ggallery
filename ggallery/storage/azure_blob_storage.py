@@ -1,4 +1,5 @@
 from azure.storage.blob import BlobServiceClient
+from azure.core.exceptions import ResourceNotFoundError
 from .base_provider import BaseSourceDataProvider, BaseStorageProvider
 from ..model import AzureBlobStorageConfig
 
@@ -31,7 +32,7 @@ class AzureBlobStorageProvider(BaseStorageProvider):
         if not self.config.connection_string:
             raise ValueError("Azure Storage connection string not found.")
 
-        self.blob_service_client = BlobServiceClient.from_connection_string(self.config.connection_string)
+        self.blob_service_client = BlobServiceClient.from_connection_string(self.config.connection_string, api_version="2025-05-05")
         self.container_client = self.blob_service_client.get_container_client(self.config.container)
         self.base_url_value = self.container_client.url + "/"
 
@@ -53,8 +54,10 @@ class AzureBlobStorageProvider(BaseStorageProvider):
         try:
             self.container_client.get_blob_client(blob_name).get_blob_properties()
             return True
-        except:
+        except ResourceNotFoundError:
             return False
-
+        except Exception:
+            return False
+        
     def base_url(self) -> str:
         return self.base_url_value
